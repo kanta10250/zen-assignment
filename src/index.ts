@@ -1,7 +1,7 @@
 import { Hono } from 'hono'
 import { html } from 'hono/html'
 
-const app = new Hono()
+const app = new Hono<{ Bindings: CloudflareBindings }>()
 
 app.get('/', (c) => {
   return c.html(html`
@@ -22,7 +22,7 @@ app.get('/', (c) => {
 })
 
 app.post('/todos', async (c) => {
-  return c.redirect('/');
+  return c.redirect('/', 303);
 })
 
 app.post('/todos/:id/toggle', async (c) => {
